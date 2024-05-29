@@ -9,12 +9,12 @@ from rest_framework_simplejwt.tokens import RefreshToken
 class UserViewSet(viewsets.ModelViewSet):
   queryset = UserData.objects.all()
   serializer_class = UserDataSerializer
-  permission_classes = (permissions.IsAuthenticated,)
+  # permission_classes = (permissions.IsAuthenticated,)
   
 class JobViewSet(viewsets.ModelViewSet):
   queryset = Job.objects.all()
   serializer_class = JobSerializer
-  permission_classes = (permissions.IsAuthenticated,)
+  # permission_classes = (permissions.IsAuthenticated,)
   
   
 class LoginView(generics.ListCreateAPIView):
