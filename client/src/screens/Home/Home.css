@@ -21,6 +21,11 @@ hr{
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  cursor: pointer;
+}
+
+.card:hover .title{
+  text-decoration: underline;
 }
 
 .job-details{

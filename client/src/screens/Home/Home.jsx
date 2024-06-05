@@ -35,6 +35,7 @@ export default function Home() {
 
     const fetchJobs = async (lat, lng) => {
       const userLocation = await axios.get(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=${process.env.REACT_APP_LOCATION_API_KEY}`)
+      console.log(userLocation)
       setUserLocation({
         country: userLocation.data.address.country,
         state: userLocation.data.address.state,
@@ -54,8 +55,8 @@ export default function Home() {
       <div className="job-title">
               {jobs.map((job) => (
                 <div className="card" onClick={()=> setJobDescription(job.description)}>
-                  <h2>{job.title}</h2>
-                  <h3>{job.pay}</h3>
+                  <h2 className="title">{job.title}</h2>
+                  <h4 className="pay">${job.pay}</h4>
                   <hr width="90%"/>
                 </div>
               ))}
@@ -63,6 +64,7 @@ export default function Home() {
         <div className="job-details">
           <h2>{descriptionText}</h2>
           <p>{jobDescription ? jobDescription : jobs[0] && jobs[0].description}</p>
+          <button>Message</button>
       </div>
       </div>
     </Layout>
