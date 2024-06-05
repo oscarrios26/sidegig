@@ -9,7 +9,7 @@ class UserDataSerializer(serializers.ModelSerializer):
     fields = '__all__'
     
 class JobSerializer(serializers.ModelSerializer):
-  user = serializers.StringRelatedField()
+  # user = serializers.StringRelatedField()
   class Meta:
     model = Job
     fields = '__all__'

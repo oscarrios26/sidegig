@@ -1,11 +1,14 @@
 import "./Home.css"
 import { useEffect, useState } from "react"
-import {getJobs} from "../../services/jobs"
+import { getJobs } from "../../services/jobs"
+import Layout from "../../components/Layout/Layout";
 import axios from "axios"
 
 export default function Home() {
   const [jobs, setJobs] = useState([])
   const [userLocation, setUserLocation] = useState({})
+  const [jobDescription, setJobDescription] = useState('')
+  const [descriptionText, setDescriptionText] = useState('')
 
   useEffect(() => {
     const getUserLocation = () => {
@@ -32,7 +35,6 @@ export default function Home() {
 
     const fetchJobs = async (lat, lng) => {
       const userLocation = await axios.get(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=${process.env.REACT_APP_LOCATION_API_KEY}`)
-      console.log(userLocation)
       setUserLocation({
         country: userLocation.data.address.country,
         state: userLocation.data.address.state,
@@ -41,19 +43,28 @@ export default function Home() {
         postcode: userLocation.data.address.postcode
       })
       const resp = await getJobs()
+      setDescriptionText('Description:')
       setJobs(resp)
     }
-  },[])
+  }, [])
+  
   return (
-    <div>
-      {userLocation.city},{userLocation.state}
-      {jobs.map((job) => (
-        <>
-          <h1>{job.title}</h1>
-          <h2>{job.description}</h2>
-          <h1>{job.pay}</h1>
-        </>
-      ))}
-    </div>
+    <Layout location={userLocation}>
+    <div className="home-flex-container">
+      <div className="job-title">
+              {jobs.map((job) => (
+                <div className="card" onClick={()=> setJobDescription(job.description)}>
+                  <h2>{job.title}</h2>
+                  <h3>{job.pay}</h3>
+                  <hr width="90%"/>
+                </div>
+              ))}
+      </div>
+        <div className="job-details">
+          <h2>{descriptionText}</h2>
+          <p>{jobDescription ? jobDescription : jobs[0] && jobs[0].description}</p>
+      </div>
+      </div>
+    </Layout>
   )
 }
