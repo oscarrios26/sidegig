@@ -22,7 +22,7 @@ padding-right: 130px;
 
 .nav-flex{
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin-top: 5px;
 }
 

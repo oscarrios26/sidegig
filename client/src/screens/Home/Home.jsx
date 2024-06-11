@@ -4,11 +4,14 @@ import { getJobs } from "../../services/jobs"
 import Layout from "../../components/Layout/Layout";
 import axios from "axios"
 
-export default function Home() {
+export default function Home({user, setUser}) {
   const [jobs, setJobs] = useState([])
   const [userLocation, setUserLocation] = useState({})
   const [jobDescription, setJobDescription] = useState('')
   const [descriptionText, setDescriptionText] = useState('')
+  const [style, setStyle] = useState({
+    visibility: "hidden"
+  })
 
   useEffect(() => {
     const getUserLocation = () => {
@@ -46,11 +49,14 @@ export default function Home() {
       const resp = await getJobs()
       setDescriptionText('Description:')
       setJobs(resp)
+      setStyle({
+        visibility: "visible"
+      })
     }
   }, [])
   
   return (
-    <Layout location={userLocation}>
+    <Layout location={userLocation} user={user} setUser={setUser}>
     <div className="home-flex-container">
       <div className="job-title">
               {jobs.map((job) => (
@@ -64,7 +70,7 @@ export default function Home() {
         <div className="job-details">
           <h2>{descriptionText}</h2>
           <p>{jobDescription ? jobDescription : jobs[0] && jobs[0].description}</p>
-          <button>Message</button>
+          <button style={style}>Message</button>
       </div>
       </div>
     </Layout>
