@@ -8,12 +8,11 @@ function App() {
 	const [user, setUser] = useState("");
 
 	useEffect(() => {
-		if (localStorage.getItem("token")) {
+		if (localStorage.getItem("user")) {
 			const fetchUser = async () => {
 				const userName = JSON.parse(localStorage.getItem(["user"]));
-				console.log(userName.username);
+				console.log(userName);
 				const resp = await verifyUser(userName.id);
-				console.log(resp);
 				resp ? setUser(resp.username) : setUser(null);
 			};
 			fetchUser();

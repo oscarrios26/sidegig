@@ -1,16 +1,26 @@
 import { NavLink } from "react-router-dom";
 import "./Nav.css";
 import LogIn from "../LogIn/LogIn";
+import { signOut } from "../../services/users";
+import { useNavigate } from "react-router-dom";
+
+export default function Nav(props) {
+const navigate = useNavigate();
+  const handleClick= async ()=> {
+		await signOut();
+		props.setUser(null);
+		navigate("/home");
+}
+
 
 const authenticatedOptions = (
 	<>
-		<NavLink to="/sign-out" className="sign-out">
-			Sign Out
-		</NavLink>
+    <button onClick={()=>handleClick()}>
+      Sign Out
+    </button>
 	</>
 );
 
-export default function Nav(props) {
 	return (
 		<nav>
       <div className="nav-flex">
@@ -23,7 +33,6 @@ export default function Nav(props) {
           <LogIn user={props.user} setUser={props.setUser} />
         }
       </div>
-      {props.user ? authenticatedOptions : null}
       {props.user && <h4>Welcome, {props.user}</h4>}
     </nav>
     
