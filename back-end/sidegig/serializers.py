@@ -9,7 +9,7 @@ class UserDataSerializer(serializers.ModelSerializer):
     fields = '__all__'
     
 class JobSerializer(serializers.ModelSerializer):
-  # user = serializers.StringRelatedField()
+  user = serializers.StringRelatedField()
   class Meta:
     model = Job
     fields = '__all__'
@@ -22,3 +22,6 @@ class UserSerializer(serializers.ModelSerializer):
         
 class TokenSerializer(serializers.Serializer):
     token = serializers.CharField(max_length=255)
+    
+class VerifySerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=255)

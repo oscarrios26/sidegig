@@ -1,10 +1,12 @@
-from .serializers import UserDataSerializer, JobSerializer, UserSerializer, TokenSerializer
+from .serializers import UserDataSerializer, JobSerializer, UserSerializer, TokenSerializer, VerifySerializer
 from .models import UserData, Job
 from rest_framework import viewsets, generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth.hashers import check_password
+from django.shortcuts import get_object_or_404
 
 class UserViewSet(viewsets.ModelViewSet):
   queryset = UserData.objects.all()
@@ -39,7 +41,7 @@ class LoginView(generics.ListCreateAPIView):
                 "token": str(refresh.access_token)
                 })
             serializer.is_valid()
-            return Response(serializer.data)
+            return Response({"token" : serializer.data, "username": username, "id":user.id})
         return Response(status=status.HTTP_401_UNAUTHORIZED)
       
       
@@ -60,6 +62,22 @@ class RegisterUsersView(generics.ListCreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         new_user = User.objects.create_user(
-            username=username, password=password, email=email
+          username=username, password=password, email=email
         )
-        return Response(status=status.HTTP_201_CREATED)
+        user = authenticate(request, username=username, password=password)
+        login(request, user)
+        refresh = RefreshToken.for_user(user)
+        serializer = TokenSerializer(data={
+            # using DRF JWT utility functions to generate a token
+            "token": str(refresh.access_token)
+            })
+        serializer.is_valid()
+        return Response({"token" : serializer.data, "username": username})
+
+
+class VerifyUsersView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = VerifySerializer
+    def verify(self):
+      username = User.objects.get(username=self.pk)
+      return Response({"username": username})

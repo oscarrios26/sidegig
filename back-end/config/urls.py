@@ -15,5 +15,6 @@ urlpatterns = [
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('user/signup/', views.RegisterUsersView.as_view(), name="user-signup"),
     path('user/login/', views.LoginView.as_view(), name="user-login"),
+    path('verify/<int:pk>/', views.VerifyUsersView.as_view()),
     path('', include(router.urls))
 ]

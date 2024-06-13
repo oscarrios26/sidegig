@@ -60,18 +60,27 @@ export default function Home({user, setUser}) {
     <div className="home-flex-container">
       <div className="job-title">
               {jobs.map((job) => (
-                <div className="card" onClick={()=> setJobDescription(job.description)}>
+                <div className="card" onClick={()=> setJobDescription(job)}>
                   <h2 className="title">{job.title}</h2>
                   <h4 className="pay">${job.pay}</h4>
                   <hr width="90%"/>
                 </div>
               ))}
-      </div>
-        <div className="job-details">
+        </div>
+        <div className="job-details-div">
+            {jobDescription ? 
+            <><h1>{jobDescription.title}</h1><h4>${jobDescription.pay}</h4></>
+              :
+              <><h1>{jobs[0] && jobs[0].title}</h1><h4>${jobs[0] && jobs[0].pay}</h4></>
+          }
+          <hr />
+          <div className="description-div">
+            {jobDescription.user}
           <h2>{descriptionText}</h2>
-          <p>{jobDescription ? jobDescription : jobs[0] && jobs[0].description}</p>
+          <p>{jobDescription ? jobDescription.description : jobs[0] && jobs[0].description}</p>
+          </div>
           <button style={style}>Message</button>
-      </div>
+          </div>
       </div>
     </Layout>
   )

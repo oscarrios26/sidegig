@@ -4,7 +4,6 @@ class UserData(models.Model):
   first_name = models.CharField(max_length=128)
   last_name = models.CharField(max_length=128)
   email = models.EmailField(max_length=128)
-  street_address = models.CharField(max_length=56)
   city = models.CharField(max_length=56)
   state = models.CharField(max_length=56)
   zip_code = models.IntegerField()

@@ -32,8 +32,8 @@ const authenticatedOptions = (
         {props.user ? authenticatedOptions : 
           <LogIn user={props.user} setUser={props.setUser} />
         }
+        {props.user && <h4>Welcome, {props.user}</h4>}
       </div>
-      {props.user && <h4>Welcome, {props.user}</h4>}
     </nav>
     
 	);

@@ -30,7 +30,6 @@ export default function LogIn({user, setUser}) {
       setUser(user.username);
 			localStorage.setItem("user", JSON.stringify(user));
 		} catch (error) {
-			console.error(error);
 			// setUser({
 			// 	isError: true,
 			// 	errorMsg: "Invalid Credentials",
