@@ -38,7 +38,6 @@ export default function Home({user, setUser}) {
 
     const fetchJobs = async (lat, lng) => {
       const userLocation = await axios.get(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=${process.env.REACT_APP_LOCATION_API_KEY}`)
-      console.log(userLocation)
       setUserLocation({
         country: userLocation.data.address.country,
         state: userLocation.data.address.state,

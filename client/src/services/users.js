@@ -2,8 +2,8 @@ import api from "./apiConfig";
 
 export const signUp = async (credentials) => {
 	try {
-		const resp = await api.post("user/signup/", credentials);
-		localStorage.setItem("token", resp.data);
+		const resp = await api.post("/user/signup/", credentials);
+		localStorage.setItem("token", resp.data.token.token);
 		const user = resp.data;
 		return user;
 	} catch (error) {
@@ -13,9 +13,9 @@ export const signUp = async (credentials) => {
 
 export const logIn = async (credentials) => {
 	try {
-		const resp = await api.post("user/login/", credentials);
-		const user = resp.data;
-		return user;
+		const resp = await api.post("/user/login/", credentials);
+		localStorage.setItem("token", resp.data.token.token);
+		return resp.data;
 	} catch (error) {
 		throw error;
 	}
@@ -23,7 +23,7 @@ export const logIn = async (credentials) => {
 
 export const signOut = async () => {
 	try {
-		localStorage.removeItem("user");
+		localStorage.removeItem("token");
 		return true;
 	} catch (error) {
 		throw error;
@@ -39,7 +39,7 @@ export const getUsers = async () => {
 	}
 };
 
-export const verifyUser = async (user) => {
-	const res = await api.get(`/verify/${user}/`);
+export const verifyUser = async (userId) => {
+	const res = await api.get(`/verify/${userId}/`);
 	return res.data;
 };

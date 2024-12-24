@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import UserData, Job
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import User
+
 
 class UserDataSerializer(serializers.ModelSerializer):
   jobs = serializers.StringRelatedField(many=True)
@@ -22,6 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
         
 class TokenSerializer(serializers.Serializer):
     token = serializers.CharField(max_length=255)
-    
+      
 class VerifySerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
+

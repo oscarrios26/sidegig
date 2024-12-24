@@ -41,7 +41,7 @@ class LoginView(generics.ListCreateAPIView):
                 "token": str(refresh.access_token)
                 })
             serializer.is_valid()
-            return Response({"token" : serializer.data, "username": username, "id":user.id})
+            return Response({"token" : serializer.data})
         return Response(status=status.HTTP_401_UNAUTHORIZED)
       
       
@@ -72,12 +72,12 @@ class RegisterUsersView(generics.ListCreateAPIView):
             "token": str(refresh.access_token)
             })
         serializer.is_valid()
-        return Response({"token" : serializer.data, "username": username})
+        return Response({"token" : serializer.data})
 
 
 class VerifyUsersView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = VerifySerializer
     def verify(self):
-      username = User.objects.get(username=self.pk)
-      return Response({"username": username})
+      username = User.objects.get(id=self.pk)
+      return Response({"username": username.username})

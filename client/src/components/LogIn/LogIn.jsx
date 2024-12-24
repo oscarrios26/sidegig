@@ -7,14 +7,16 @@ import SignUp from "../SignUp/SignUp";
 
 Modal.setAppElement("#root");
 
-export default function LogIn({user, setUser}) {
+export default function LogIn({ user, setUser }) {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false)
 	const [credentials, setCredentials] = useState({
     password: "",
     username: "",
 		isError: false,
 		errorMsg: "",
-	});
+  });
+  
 
 	const handleChange = (e) => {
 		setCredentials({
@@ -25,19 +27,19 @@ export default function LogIn({user, setUser}) {
 
   const onLogIn = async (event) => {
 		event.preventDefault();
-		try {
-			const user = await logIn(credentials);
-      setUser(user.username);
-			localStorage.setItem("user", JSON.stringify(user));
+    try {
+      await logIn(credentials)
+      window.location.reload()
 		} catch (error) {
-			// setUser({
+			// setCredentials({
 			// 	isError: true,
 			// 	errorMsg: "Invalid Credentials",
 			// 	email: "",
 			// 	password: "",
 			// });
 		}
-	};
+  };
+  
   return (
     <>
       <div onClick={() => setOpen(!open)}>

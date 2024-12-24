@@ -12,7 +12,6 @@ const navigate = useNavigate();
 		navigate("/home");
 }
 
-
 const authenticatedOptions = (
 	<>
     <button onClick={()=>handleClick()}>

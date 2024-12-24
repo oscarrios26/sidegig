@@ -1,7 +1,6 @@
 import "./SignUp.css";
 import { useState } from "react";
 import { signUp } from "../../services/users";
-import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
@@ -29,17 +28,12 @@ export default function SignUp({setOpen, setUser}) {
 		event.preventDefault();
 		try {
       const user = await signUp(credentials);
+      console.log(user)
       setModal(!modal)
       setOpen((prev)=> !prev)
 			setUser(user.username);
 		} catch (error) {
-			console.error(error);
-			// setUser({
-			// 	isError: true,
-			// 	errorMsg: "Invalid Credentials",
-			// 	email: "",
-			// 	password: "",
-			// });
+      throw error
 		}
 	};
 
@@ -54,7 +48,7 @@ export default function SignUp({setOpen, setUser}) {
 					<input
 						type="text"
 						placeholder="first Name"
-						className="su-text"
+						className="signup-text"
 						value={credentials.first_name}
 						name="first_name"
 						onChange={handleChange}
@@ -62,7 +56,7 @@ export default function SignUp({setOpen, setUser}) {
 					<input
 						type="text"
 						placeholder="last Name"
-						className="su-text"
+						className="signup-text"
 						value={credentials.last_name}
 						name="last_name"
 						onChange={handleChange}
@@ -70,7 +64,7 @@ export default function SignUp({setOpen, setUser}) {
 					<input
 						type="text"
 						placeholder="username"
-						className="su-text"
+						className="signup-text"
 						value={credentials.username}
 						name="username"
 						onChange={handleChange}
@@ -78,7 +72,7 @@ export default function SignUp({setOpen, setUser}) {
 					<input
 						type="text"
 						placeholder="email"
-						className="su-text"
+						className="signup-text"
 						value={credentials.email}
 						name="email"
 						onChange={handleChange}
@@ -86,7 +80,7 @@ export default function SignUp({setOpen, setUser}) {
 					<input
 						type="text"
 						placeholder="password"
-						className="su-text"
+						className="signup-text"
 						value={credentials.password}
 						name="password"
 						onChange={handleChange}
