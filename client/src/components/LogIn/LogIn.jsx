@@ -31,12 +31,12 @@ export default function LogIn({ user, setUser }) {
       await logIn(credentials)
       window.location.reload()
 		} catch (error) {
-			// setCredentials({
-			// 	isError: true,
-			// 	errorMsg: "Invalid Credentials",
-			// 	email: "",
-			// 	password: "",
-			// });
+			setCredentials({
+				isError: true,
+				errorMsg: "Invalid Credentials",
+				email: "",
+				password: "",
+			});
 		}
   };
   

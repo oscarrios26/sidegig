@@ -4,8 +4,7 @@ import { signUp } from "../../services/users";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
-
-export default function SignUp({setOpen, setUser}) {
+export default function SignUp({ setOpen, setUser }) {
   const [modal, setModal] = useState(false)
   const [credentials, setCredentials] = useState({
 		email: "",
@@ -27,11 +26,8 @@ export default function SignUp({setOpen, setUser}) {
   const onSignUp = async (event) => {
 		event.preventDefault();
 		try {
-      const user = await signUp(credentials);
-      console.log(user)
-      setModal(!modal)
-      setOpen((prev)=> !prev)
-			setUser(user.username);
+      await signUp(credentials);
+      window.location.reload()
 		} catch (error) {
       throw error
 		}

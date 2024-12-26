@@ -1,0 +1,8 @@
+.hidden-text{
+  display: none;
+}
+
+.formjob-div{
+  display: flex;
+  flex-direction: column;
+}

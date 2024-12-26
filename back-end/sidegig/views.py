@@ -1,5 +1,5 @@
-from .serializers import UserDataSerializer, JobSerializer, UserSerializer, TokenSerializer, VerifySerializer
-from .models import UserData, Job
+from .serializers import  JobSerializer, UserSerializer, TokenSerializer, VerifySerializer
+from .models import Job
 from rest_framework import viewsets, generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -7,16 +7,12 @@ from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import get_object_or_404
+from rest_framework import permissions
 
-class UserViewSet(viewsets.ModelViewSet):
-  queryset = UserData.objects.all()
-  serializer_class = UserDataSerializer
-  # permission_classes = (permissions.IsAuthenticated,)
-  
 class JobViewSet(viewsets.ModelViewSet):
   queryset = Job.objects.all()
   serializer_class = JobSerializer
-  # permission_classes = (permissions.IsAuthenticated,)
+  permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
   
   
 class LoginView(generics.ListCreateAPIView):
