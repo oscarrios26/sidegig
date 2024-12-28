@@ -1,16 +1,17 @@
 import './JobForm.css'
 import { useState } from "react";
 import Modal from "react-modal";
+import { postJob } from '../../services/jobs';
 
 Modal.setAppElement("#root");
-export default function JobForm() {
+export default function JobForm({userId, userName}) {
   const [modal, setModal] = useState(false)
   const [jobPost, setJobPost] = useState({
     title: "",
 		description: "",
 		pay: "",
-    username: "",
-    userId: "",
+    username: userName,
+    userId: userId,
     city: "",
     state: "", 
     zipCode: "",
@@ -23,6 +24,20 @@ export default function JobForm() {
 		});
     };
   
+  const onSubmit = async (event) => {
+		event.preventDefault();
+    try {
+      await postJob(jobPost)
+		} catch (error) {
+			// setCredentials({
+			// 	isError: true,
+			// 	errorMsg: "Invalid Credentials",
+			// 	email: "",
+			// 	password: "",
+			// });
+		}
+  };
+  
   return (
     <>
       <button onClick={()=> setModal(!modal)}>
@@ -30,7 +45,7 @@ export default function JobForm() {
       </button>
       <div>
         <Modal isOpen={modal} className="parent-modal-div">
-          <form action="POST">
+          <form action="POST" onSubmit={onSubmit}>
             <div className='formjob-div'>
             <input
               type="text"
@@ -71,7 +86,7 @@ export default function JobForm() {
               placeholder="zip-code"
               type="text"
               value={jobPost.zipCode}
-              name="zip-code"
+              name="zipCode"
               onChange={handleChange} />
               <button className="signup-btn">Sign Up</button>
               </div>

@@ -4,7 +4,7 @@ import { getJobs } from "../../services/jobs"
 import Layout from "../../components/Layout/Layout";
 import axios from "axios"
 
-export default function Home({user, setUser}) {
+export default function Home({ user, setUser, userId }) {
   const [jobs, setJobs] = useState([])
   const [userLocation, setUserLocation] = useState({})
   const [jobDescription, setJobDescription] = useState('')
@@ -16,24 +16,24 @@ export default function Home({user, setUser}) {
   useEffect(() => {
     const getUserLocation = () => {
       if ("geolocation" in navigator) {
-  // Prompt user for permission to access their location
-  navigator.geolocation.getCurrentPosition(
-    // Success callback function
-    (position) => {
-      // Get the user's latitude and longitude coordinates
-      fetchJobs(position.coords.latitude, position.coords.longitude)
-    },
-    // Error callback function
-    (error) => {
-      // Handle errors, e.g. user denied location sharing permissions
-      console.error("Error getting user location:", error);
-    }
-  );
-} else {
-  // Geolocation is not supported by the browser
-  console.error("Geolocation is not supported by this browser.");
+        // Prompt user for permission to access their location
+        navigator.geolocation.getCurrentPosition(
+          // Success callback function
+          (position) => {
+            // Get the user's latitude and longitude coordinates
+            fetchJobs(position.coords.latitude, position.coords.longitude)
+          },
+          // Error callback function
+          (error) => {
+            // Handle errors, e.g. user denied location sharing permissions
+            console.error("Error getting user location:", error);
+          }
+        );
+      } else {
+        // Geolocation is not supported by the browser
+        console.error("Geolocation is not supported by this browser.");
       }
-}
+    }
     getUserLocation()
 
     const fetchJobs = async (lat, lng) => {
@@ -55,7 +55,7 @@ export default function Home({user, setUser}) {
   }, [])
   
   return (
-    <Layout location={userLocation} user={user} setUser={setUser}>
+    <Layout location={userLocation} user={user} setUser={setUser} userId={userId}>
     <div className="home-flex-container">
       <div className="job-title">
               {jobs.map((job) => (

@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import Job
 from django.contrib.auth.models import User
-from django.db import models
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

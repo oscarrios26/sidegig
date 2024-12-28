@@ -8,3 +8,12 @@ export const getJobs = async () => {
 		throw error;
 	}
 };
+
+export const postJob = async (credentials) => {
+	try {
+		const response = await api.post(`/jobs/`, credentials);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+};

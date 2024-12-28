@@ -7,6 +7,7 @@ import Home from "./screens/Home/Home";
 
 function App() {
 	const [user, setUser] = useState("");
+	const [userId, setUserId] = useState("");
 
 	useEffect(() => {
 		if (localStorage.getItem("token")) {
@@ -15,6 +16,7 @@ function App() {
 				const decoded = jwtDecode(token);
 				const resp = await verifyUser(decoded.user_id);
 				resp ? setUser(resp.username) : setUser(null);
+				setUserId(decoded.user_id);
 			};
 			fetchUser();
 		}
@@ -23,7 +25,10 @@ function App() {
 	return (
 		<div className="App">
 			<Routes>
-				<Route path="/home" element={<Home user={user} setUser={setUser} />} />
+				<Route
+					path="/home"
+					element={<Home user={user} setUser={setUser} userId={userId} />}
+				/>
 			</Routes>
 		</div>
 	);

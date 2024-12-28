@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'sidegig',
     'rest_framework',
     "corsheaders",
-
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -129,6 +129,12 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
+# settings.py
+
+# settings.py
+
+# settings.py
+
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
 #         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -166,8 +172,10 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
 ]
 
 CORS_ALLOW_METHODS = (

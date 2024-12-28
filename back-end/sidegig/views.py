@@ -5,21 +5,23 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth.hashers import check_password
-from django.shortcuts import get_object_or_404
-from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated 
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-class JobViewSet(viewsets.ModelViewSet):
-  queryset = Job.objects.all()
-  serializer_class = JobSerializer
-  permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-  
-  
+class Jobs(viewsets.ModelViewSet):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
 class LoginView(generics.ListCreateAPIView):
     # This permission class will overide the global permission class setting
     # Permission checks are always run at the very start of the view, before any other code is allowed to proceed.
     # The permission class here is set to AllowAny, which overwrites the global class to allow anyone to have access to login.
     permission_classes = (permissions.AllowAny,)
+
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -43,6 +45,7 @@ class LoginView(generics.ListCreateAPIView):
       
 class RegisterUsersView(generics.ListCreateAPIView):
     permission_classes = (permissions.AllowAny,)
+
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -72,6 +75,7 @@ class RegisterUsersView(generics.ListCreateAPIView):
 
 
 class VerifyUsersView(generics.RetrieveAPIView):
+    
     queryset = User.objects.all()
     serializer_class = VerifySerializer
     def verify(self):

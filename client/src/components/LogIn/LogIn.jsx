@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { logIn } from "../../services/users";
 import "./LogIn.css"
@@ -7,8 +6,8 @@ import SignUp from "../SignUp/SignUp";
 
 Modal.setAppElement("#root");
 
-export default function LogIn({ user, setUser }) {
-  const navigate = useNavigate();
+export default function LogIn({ user, setUser}) {
+
   const [open, setOpen] = useState(false)
 	const [credentials, setCredentials] = useState({
     password: "",
@@ -67,7 +66,7 @@ export default function LogIn({ user, setUser }) {
               <button className="logIn-btn">Log In</button>
             </form>
             <div className="sign-up-div">
-              Don't have an account{" "} <SignUp setOpen={setOpen} setUser={setUser} />                     
+              Don't have an account{" "} <SignUp setOpen={setOpen} setUser={setUser}/>                     
             </div>
           </div>
         </Modal>

@@ -1,12 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
 from sidegig import views
 from rest_framework_simplejwt import views as jwt_views
+from rest_framework_simplejwt.views import TokenVerifyView
+from rest_framework import routers
+from sidegig.views import  Jobs
 
 router = routers.DefaultRouter()
-router.register('jobs', views.JobViewSet)
-
+router.register('jobs', Jobs)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),

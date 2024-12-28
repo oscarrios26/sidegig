@@ -18,7 +18,7 @@ const authenticatedOptions = (
     <button onClick={()=>handleClick()}>
       Sign Out
     </button>
-    <JobForm/>
+    <JobForm userId={props.userId} userName={props.user} />
 	</>
 );
 
@@ -32,7 +32,7 @@ const authenticatedOptions = (
         {!props.location.city ? '' : <h3 className="location">{`${props.location.city}, ${props.location.state}`}</h3>}
         {props.user && <h4>Welcome, {props.user}</h4>}
         {props.user ? authenticatedOptions : 
-          <LogIn user={props.user} setUser={props.setUser} />
+          <LogIn user={props.user} setUser={props.setUser}/>
         }
       </div>
     </nav>
