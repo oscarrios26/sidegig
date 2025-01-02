@@ -2,5 +2,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: rgb(240, 242, 245)
+  background-color: #fff;
+  font-family: "Helvetica, sans-serif";;
 }
+

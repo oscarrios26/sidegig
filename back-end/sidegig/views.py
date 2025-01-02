@@ -53,6 +53,7 @@ class RegisterUsersView(generics.ListCreateAPIView):
         username = request.data.get("username", "")
         password = request.data.get("password", "")
         email = request.data.get("email", "")
+        
         if not username or not password or not email:
             return Response(
                 data={
@@ -78,6 +79,3 @@ class VerifyUsersView(generics.RetrieveAPIView):
     
     queryset = User.objects.all()
     serializer_class = VerifySerializer
-    def verify(self):
-      username = User.objects.get(id=self.pk)
-      return Response({"username": username.username})

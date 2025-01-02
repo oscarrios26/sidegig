@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import { postJob } from '../../services/jobs';
 
 Modal.setAppElement("#root");
-export default function JobForm({userId, userName}) {
+export default function JobForm({userId, userName, dateJoined}) {
   const [modal, setModal] = useState(false)
   const [jobPost, setJobPost] = useState({
     title: "",
@@ -12,6 +12,7 @@ export default function JobForm({userId, userName}) {
 		pay: "",
     username: userName,
     userId: userId,
+    date_joined: dateJoined,
     city: "",
     state: "", 
     zipCode: "",
@@ -40,7 +41,7 @@ export default function JobForm({userId, userName}) {
   
   return (
     <>
-      <button onClick={()=> setModal(!modal)}>
+      <button onClick={()=> setModal(!modal)} className='listjob-btn'>
         List Job
       </button>
       <div>

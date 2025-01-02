@@ -5,32 +5,62 @@ nav{
   position: fixed;
   top: 0; 
   z-index: 100;
+  display: flex;
+  justify-content:space-around; 
 }
+
+.div-logo{
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 .logo{
   color: white;
-  font-size: 2rem;
+  font-size: 4rem;
   text-decoration: none;
   margin-right: 30px;
 }
 
-.sign-out{
-margin-top: 30px;
-color: #fff;
-text-decoration: none;
-padding-right: 130px;
-}
-
-.nav-flex{
+.auth-div{
   display: flex;
-  justify-content: flex-start;
-  margin-top: 5px;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 500px;
+  height: 100%;
 }
 
-.input-location{
-  width: 300px;
-  height: 20px;
+.username{
+  display: flex;
+  height: 100%;
+  }
+
+.signout-btn{
+  border: none;
+  background-color: rgb(91, 150, 233);
+  color: #fff;
+  font-size: 15px;
+}
+
+.signout-btn:hover{
+  text-decoration: underline;
 }
 
 .location{
+  display: flex;
+  align-items: end;
   color: #fff;
+  height: 100%;
+}
+
+.location-p{
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+
+.user-p{
+  margin-top: 48px;
+  color: white;
+  margin-right: 80px;
+  font-size: 20px;
 }

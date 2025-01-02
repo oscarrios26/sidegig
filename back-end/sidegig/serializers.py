@@ -18,4 +18,5 @@ class TokenSerializer(serializers.Serializer):
       
 class VerifySerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
+    date_joined = serializers.CharField(max_length=255)
 

@@ -14,23 +14,28 @@ const navigate = useNavigate();
 }
 
 const authenticatedOptions = (
-	<>
-    <button onClick={()=>handleClick()}>
+  <div className="auth-div">
+    <div className="username">
+      {props.user && <p className="user-p">Welcome, {props.user}</p>}
+    </div>
+    <JobForm userId={props.userId} userName={props.user} dateJoined={props.dateJoined} />
+    <button onClick={()=>handleClick()} className="signout-btn">
       Sign Out
     </button>
-    <JobForm userId={props.userId} userName={props.user} />
-	</>
+	</div>
 );
 
 	return (
-		<nav>
-      <div className="nav-flex">
+		<nav className="nav">
+      <div className="div-logo">
         <NavLink to="/home" className="logo">
           sidegig
         </NavLink>
-        <input type="text" className="input-location" />
-        {!props.location.city ? '' : <h3 className="location">{`${props.location.city}, ${props.location.state}`}</h3>}
-        {props.user && <h4>Welcome, {props.user}</h4>}
+        <div className="location">
+          {!props.location.city ? '' : <p className="location-p">{`${props.location.city}, ${props.location.state}`}</p>}
+        </div>
+      </div>
+      <div>
         {props.user ? authenticatedOptions : 
           <LogIn user={props.user} setUser={props.setUser}/>
         }
