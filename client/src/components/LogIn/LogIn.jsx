@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { logIn } from "../../services/users";
 import "./LogIn.css"
 import Modal from "react-modal";
@@ -6,7 +6,7 @@ import SignUp from "../SignUp/SignUp";
 
 Modal.setAppElement("#root");
 
-export default function LogIn({ user, setUser}) {
+export default function LogIn({ setUser, logInModal, setLogInModal}) {
 
   const [open, setOpen] = useState(false)
 	const [credentials, setCredentials] = useState({
@@ -16,6 +16,9 @@ export default function LogIn({ user, setUser}) {
 		errorMsg: "",
   });
   
+  useEffect(() => {
+    setOpen(!logInModal)
+  }, [logInModal])
 
 	const handleChange = (e) => {
 		setCredentials({
@@ -33,12 +36,18 @@ export default function LogIn({ user, setUser}) {
 			setCredentials({
 				isError: true,
 				errorMsg: "Invalid Credentials",
-				email: "",
+				username: "",
 				password: "",
 			});
 		}
   };
   
+  const hadleClick = () => {
+    
+    setOpen(!open)
+    setLogInModal((prev)=> !prev)
+  }
+
   return (
     <>
       <div onClick={() => setOpen(!open)}>
@@ -46,9 +55,13 @@ export default function LogIn({ user, setUser}) {
       </div>
       <div>
         <Modal isOpen={open} className="parent-modal-div">
-          <h2 className="login-title">Sign In</h2>
+          <div className="exitlogin-div">
+            <button className="exit-login" onClick={hadleClick}>X</button>
+          </div>
           <div className="modal-div">
             <form className="credentials-form" onSubmit={onLogIn}>
+              <p className="login-title">Sign In</p>
+              <div className="div-errormsg"> {credentials.isError ? credentials.errorMsg : null}</div>
               <input
                 type="text"
                 placeholder="username"
@@ -63,10 +76,10 @@ export default function LogIn({ user, setUser}) {
                 value={credentials.password}
                 name="password"
                 onChange={handleChange} />
-              <button className="logIn-btn">Log In</button>
+              <button className="logIn-btn">Submit</button>
             </form>
             <div className="sign-up-div">
-              Don't have an account{" "} <SignUp setOpen={setOpen} setUser={setUser}/>                     
+              Don't have an account? <SignUp setOpen={setOpen} setUser={setUser}/>                     
             </div>
           </div>
         </Modal>

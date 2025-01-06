@@ -6,6 +6,7 @@ import moment from "moment";
 import axios from "axios"
 import { verifyUser } from "../../services/users"
 import { jwtDecode } from "jwt-decode";
+import LogIn from "../../components/LogIn/LogIn";
 
 export default function Home() {
   const [jobs, setJobs] = useState([])
@@ -15,6 +16,7 @@ export default function Home() {
   const [user, setUser] = useState("");
   const [userId, setUserId] = useState("");
   const [dateJoined, setDateJoined] = useState('') 
+  const [logInModal, setLogInModal] = useState(false)
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -34,36 +36,43 @@ export default function Home() {
 			fetchUser();
     }
     
-    const getUserLocation = () => {
-      if ("geolocation" in navigator) {
-        // Prompt user for permission to access their location
-        navigator.geolocation.getCurrentPosition(
-          // Success callback function
-          (position) => {
-            // Get the user's latitude and longitude coordinates
-            fetchJobs(position.coords.latitude, position.coords.longitude)
-          },
-          // Error callback function
-          (error) => {
-            // Handle errors, e.g. user denied location sharing permissions
-            console.error("Error getting user location:", error);
-          }
-        );
-      } else {
-        // Geolocation is not supported by the browser
-        console.error("Geolocation is not supported by this browser.");
-      }
-    }
-    getUserLocation()
+    // const getUserLocation = () => {
+    //   if ("geolocation" in navigator) {
+    //     // Prompt user for permission to access their location
+    //     navigator.geolocation.getCurrentPosition(
+    //       // Success callback function
+    //       (position) => {
+    //         // Get the user's latitude and longitude coordinates
+    //         fetchJobs(position.coords.latitude, position.coords.longitude)
+    //       },
+    //       // Error callback function
+    //       (error) => {
+    //         // Handle errors, e.g. user denied location sharing permissions
+    //         console.error("Error getting user location:", error);
+    //       }
+    //     );
+    //   } else {
+    //     // Geolocation is not supported by the browser
+    //     console.error("Geolocation is not supported by this browser.");
+    //   }
+    // }
+    // getUserLocation()
 
     const fetchJobs = async (lat, lng) => {
-      const userLocation = await axios.get(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=${process.env.REACT_APP_LOCATION_API_KEY}`)
-      setUserLocation({
-        country: userLocation.data.address.country,
-        state: userLocation.data.address.state,
-        county: userLocation.data.address.county,
-        city: userLocation.data.address.city,
-        postcode: userLocation.data.address.postcode
+      // const userLocation = await axios.get(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=${process.env.REACT_APP_LOCATION_API_KEY}`)
+      // setUserLocation({
+      //   country: userLocation.data.address.country,
+      //   state: userLocation.data.address.state,
+      //   county: userLocation.data.address.county,
+      //   city: userLocation.data.address.city,
+      //   postcode: userLocation.data.address.postcode
+      // })
+            setUserLocation({
+        country: "USA",
+        state: "TX",
+        county: "Tarrant",
+        city: "Arlington",
+        postcode: "76010"
       })
       const resp = await getJobs()
       resp.sort((a,b)=>{
@@ -72,10 +81,11 @@ export default function Home() {
       setDescriptionText('Description:')
       setJobs(resp)
     }
+    fetchJobs()
   }, [])
   
   return (
-    <Layout location={userLocation} user={user} setUser={setUser} userId={userId} dateJoined={dateJoined}>
+    <Layout location={userLocation} user={user} setUser={setUser} userId={userId} dateJoined={dateJoined} logInModal={logInModal} setLogInModal={setLogInModal}>
     <div className="home-flex-container">
       <div className="job-title">
               {jobs.map((job) => (
@@ -111,8 +121,11 @@ export default function Home() {
             <div className="description-div">
                 <h2>{descriptionText}</h2>
                 <p>{jobDescription.description}</p>
-            </div>
-            <button className="msg-btn">Message</button>
+              </div>
+              <div>
+                <button className="msg-btn">Message</button>
+                <button className="msg-btn">Save <i class="fa fa-heart"></i></button>
+              </div>
           </>
             :
           jobs[0] && 
@@ -136,7 +149,8 @@ export default function Home() {
                 <h3>{descriptionText}</h3>
                 <p>{jobs[0].description}</p>
             </div>
-            <button className="msg-btn">Message</button>
+                <button className="msg-btn" onClick={() => <LogIn logInModal={!logInModal} />}>Message</button>
+                <button className="msg-btn">Save <i class="fa fa-heart"></i></button>
             </div>
           
           }

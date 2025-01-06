@@ -33,14 +33,22 @@ export default function SignUp({ setOpen, setUser }) {
 		}
 	};
 
+
+  const handleClick = ()=>{
+    setModal(!modal)
+    setOpen((prev)=> !prev)
+  }
+
   return (
-    <><div>
+    <div>
+    <div>
       <button className="sign-up-btn" onClick={() => setModal(!modal)}>Sign up</button>
-    </div><div>
+      </div>
+      <div>
         <Modal isOpen={modal} className="parent-modal-div">
-          <div className="flex-container">
-			<div className="flex-form-container">
-				<form className="flex-form-signup" onSubmit={onSignUp}>
+          <div className="exit-signup" onClick={handleClick}>X</div>
+          <form className="flex-form-signup" onSubmit={onSignUp}>
+            <p className="p-signup">Sign Up</p>
 					<input
 						type="text"
 						placeholder="first Name"
@@ -81,11 +89,10 @@ export default function SignUp({ setOpen, setUser }) {
 						name="password"
 						onChange={handleChange}
 					/>
-					<button className="signup-btn">Sign Up</button>
+					<button className="signup-button">Submit</button>
 				</form>
-			</div>
-		</div>
         </Modal>
-      </div></>
+      </div>
+      </div>
   )
 }

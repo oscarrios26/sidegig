@@ -26,7 +26,7 @@ nav{
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  width: 500px;
+  width: 600px;
   height: 100%;
 }
 
@@ -63,4 +63,17 @@ nav{
   color: white;
   margin-right: 80px;
   font-size: 20px;
+}
+
+.fa-envelope{
+  font-size: 20px;
+  color: red;
+}
+
+.fa-heart{
+  font-size: 20px;
+}
+
+.nav-btn{
+  width: 100px;
 }

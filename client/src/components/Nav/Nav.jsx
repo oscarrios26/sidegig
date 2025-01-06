@@ -18,6 +18,8 @@ const authenticatedOptions = (
     <div className="username">
       {props.user && <p className="user-p">Welcome, {props.user}</p>}
     </div>
+    <button className="nav-btn">Saved <i class="fa fa-heart"></i></button>
+    <button className="nav-btn">Inbox <i class="fa fa-envelope"></i></button>
     <JobForm userId={props.userId} userName={props.user} dateJoined={props.dateJoined} />
     <button onClick={()=>handleClick()} className="signout-btn">
       Sign Out
@@ -35,9 +37,9 @@ const authenticatedOptions = (
           {!props.location.city ? '' : <p className="location-p">{`${props.location.city}, ${props.location.state}`}</p>}
         </div>
       </div>
-      <div>
+      <div className="div-login">
         {props.user ? authenticatedOptions : 
-          <LogIn user={props.user} setUser={props.setUser}/>
+          <LogIn user={props.user} setUser={props.setUser} logInModal={props.logInModal} setLogInModal={props.setLogInModal} />
         }
       </div>
     </nav>
