@@ -1,0 +1,46 @@
+.main-div{
+  display: flex;
+  flex-direction: column;
+  max-width: 960px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.card-div{
+  display: flex;
+  padding: 15px 10px 15px 10px;
+}
+
+.fa-trash-o{
+  font-size: 25px;
+  margin-right: 100px;
+}
+
+.trash-div{
+  width: 100%;
+  display:flex;
+  justify-content: flex-end;
+}
+
+.saved-jobs-userpic{
+  margin-right: 20px;
+}
+
+.saved-jobs-div{
+  width: 700px;
+}
+
+.p-saved-jobs{
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.p-job-title{
+  font-size: 20px;
+  font-weight:550;
+}
+
+.p-job-date{
+  color: rgb(107, 106, 106);
+}

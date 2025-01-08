@@ -43,3 +43,21 @@ export const verifyUser = async (userId) => {
 	const res = await api.get(`/verify/${userId}/`);
 	return res.data;
 };
+
+export const savedJobs = async (credentials) => {
+	try {
+		const response = await api.post(`/saved/`, credentials);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const getSavedJobs = async (userId) => {
+	try {
+		const response = await api.get(`/saved-jobs/${userId}/`);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+};

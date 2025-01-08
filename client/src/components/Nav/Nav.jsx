@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "./Nav.css";
 import LogIn from "../LogIn/LogIn";
 import { signOut } from "../../services/users";
@@ -18,7 +18,7 @@ const authenticatedOptions = (
     <div className="username">
       {props.user && <p className="user-p">Welcome, {props.user}</p>}
     </div>
-    <button className="nav-btn">Saved <i class="fa fa-heart"></i></button>
+    <Link to={`/${props.userId}/saved-jobs`}><button className="nav-btn">Saved <i class="fa fa-heart"></i></button></Link>
     <button className="nav-btn">Inbox <i class="fa fa-envelope"></i></button>
     <JobForm userId={props.userId} userName={props.user} dateJoined={props.dateJoined} />
     <button onClick={()=>handleClick()} className="signout-btn">

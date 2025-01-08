@@ -1,20 +1,28 @@
-from .serializers import  JobSerializer, UserSerializer, TokenSerializer, VerifySerializer
-from .models import Job
+from .serializers import  JobSerializer, UserSerializer, TokenSerializer, VerifySerializer, SavedJobSerializer
+from .models import Job, SavedJobs
 from rest_framework import viewsets, generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated 
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 class Jobs(viewsets.ModelViewSet):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    
+class SavedList(viewsets.ModelViewSet):
+    queryset = SavedJobs.objects.all()
+    serializer_class = SavedJobSerializer
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    
+class SavedJobsList(APIView):
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs['pk']
+        jobs = SavedJobs.objects.filter(mainUserId=pk)
+        serializer = SavedJobSerializer(jobs, many=True)
+        return Response(serializer.data)
 
 class LoginView(generics.ListCreateAPIView):
     # This permission class will overide the global permission class setting

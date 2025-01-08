@@ -76,4 +76,8 @@ nav{
 
 .nav-btn{
   width: 100px;
+  background-color: rgb(91, 150, 233);
+  border: none;
+  color: white;
+  font-size: 15px;
 }
