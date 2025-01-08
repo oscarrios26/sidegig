@@ -4,6 +4,7 @@ import moment from "moment";
 import LogIn from "../../components/LogIn/LogIn";
 import { savedJobs } from "../../services/users";
 import { useState } from "react";
+import MessageModal from "../../components/MessageModal/MessageModal";
 
 export default function Home(props) {
   const [jobDescription, setJobDescription] = useState('')
@@ -59,8 +60,8 @@ export default function Home(props) {
                 <h2>{props.descriptionText}</h2>
                 <p>{jobDescription.description}</p>
               </div>
-              <div>
-                <button className="msg-btn">Message</button>
+              <div className="div-btn">
+                <MessageModal/>
                 <button className="msg-btn" onClick={()=>handleSaveJob(jobDescription)}>Save <i class="fa fa-heart"></i></button>
               </div>
           </>
@@ -85,9 +86,11 @@ export default function Home(props) {
             <div className="description-div">
                 <h3>{props.descriptionText}</h3>
                 <p>{props.jobs[0].description}</p>
-            </div>
-                <button className="msg-btn" onClick={() => <LogIn logInModal={!logInModal} />}>Message</button>
-                <button className="msg-btn" onClick={()=>handleSaveJob(props.jobs[0])}>Save <i class="fa fa-heart"></i></button>
+                </div>
+                <div className="div-btn">
+                <MessageModal/>
+                  <button className="msg-btn" onClick={() => handleSaveJob(props.jobs[0])}>Save <i class="fa fa-heart"></i></button>
+                </div>
             </div>
           
           }

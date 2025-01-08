@@ -128,3 +128,7 @@ font-style: italic;
 .p-pay{
   font-weight: 500;
 }
+
+.div-btn{
+  display: flex;
+}

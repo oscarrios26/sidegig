@@ -1,0 +1,54 @@
+textarea {
+  resize: none;
+  padding: 10px;
+}
+
+.messageModal{  border: 1px solid #101213;
+  background-color: white;
+  border-radius: 5px;
+  width: 400px;
+  height: 480px;
+  box-shadow: rgba(0,0,0,0.35) 0px 5px 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.parent-comment-div{
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -20px;
+}
+
+.textarea{
+  margin-top: 30px;
+}
+
+.p-send-message{
+  font-size: 1.5rem;
+}
+
+.message-btn{
+  padding: 3px 35px;
+  font-size: 1.2rem;
+  border-radius: 60px;
+  border: 1px solid rgb(91, 150, 233);;
+  cursor: pointer;
+  background-color: rgb(91, 150, 233);
+  color: white;
+  margin-top: 40px;
+}
+
+.exit-message-modal{
+  font-size: 20px;
+  position: relative;
+  right: -380px;
+  top: -17px;
+}
+
+.exit-message-modal:hover{
+  cursor: pointer;
+}
