@@ -87,7 +87,7 @@ export default function Home(props) {
                 <p>{props.jobs[0].description}</p>
             </div>
                 <button className="msg-btn" onClick={() => <LogIn logInModal={!logInModal} />}>Message</button>
-                <button className="msg-btn" onClick={()=>handleSaveJob()}>Save <i class="fa fa-heart"></i></button>
+                <button className="msg-btn" onClick={()=>handleSaveJob(props.jobs[0])}>Save <i class="fa fa-heart"></i></button>
             </div>
           
           }

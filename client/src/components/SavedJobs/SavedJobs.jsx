@@ -36,7 +36,7 @@ export default function SavedJobs(props) {
             <i class="fa fa-trash-o"></i>
           </div>
           </div>
-          <hr width="90%" />
+          <hr width="90%" className="hr-jobs"/>
           </>
       ))}
     </div>
