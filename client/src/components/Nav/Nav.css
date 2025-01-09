@@ -44,6 +44,7 @@ nav{
 
 .signout-btn:hover{
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .location{
@@ -80,4 +81,9 @@ nav{
   border: none;
   color: white;
   font-size: 15px;
+}
+
+.nav-btn:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }

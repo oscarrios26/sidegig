@@ -7,21 +7,22 @@ import "./SavedJobs.css"
 
 export default function SavedJobs(props) {
   const { userId } = useParams();
-  const [savedJobs, setSavedJobs] = useState([])
+  const [savedJob, setSavedJob] = useState([])
 
   useEffect(() => {
     const fetchUser = async () => {
       const resp = await getSavedJobs(userId);
-      setSavedJobs(resp)
+      setSavedJob(resp)
 			};
 			fetchUser();
   }, [userId])
+
   
   return (
     <Layout location={props.userLocation} user={props.user} setUser={props.setUser} userId={props.userId} dateJoined={props.dateJoined} jobs={props.jobs} descriptionText={props.descriptionText}>
       <div className="main-div">
         <p className="p-saved-jobs">Saved Jobs</p>
-        {savedJobs.map((job) => (
+        {savedJob.map((job) => (
         <>
         <div className="card-div">
         <div className="saved-jobs-userpic">

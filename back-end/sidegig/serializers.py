@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Job, SavedJobs
+from .models import Job, SavedJobs, JobMessage
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -17,6 +17,12 @@ class SavedJobSerializer(serializers.ModelSerializer):
   SavedJobs = serializers.StringRelatedField()
   class Meta:
     model = SavedJobs
+    fields = '__all__'
+    
+class JobMessageSerializer(serializers.ModelSerializer):
+  JobMessage = serializers.StringRelatedField()
+  class Meta:
+    model = JobMessage
     fields = '__all__'
             
 class TokenSerializer(serializers.Serializer):

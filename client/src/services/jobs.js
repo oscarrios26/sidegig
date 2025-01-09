@@ -17,3 +17,12 @@ export const postJob = async (credentials) => {
 		throw error;
 	}
 };
+
+export const postMessage = async (credentials) => {
+	try {
+		const response = await api.post(`/job-messages/`, credentials);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+};

@@ -1,5 +1,5 @@
-from .serializers import  JobSerializer, UserSerializer, TokenSerializer, VerifySerializer, SavedJobSerializer
-from .models import Job, SavedJobs
+from .serializers import  JobSerializer, UserSerializer, TokenSerializer, VerifySerializer, SavedJobSerializer, JobMessageSerializer
+from .models import Job, SavedJobs, JobMessage
 from rest_framework import viewsets, generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -23,6 +23,11 @@ class SavedJobsList(APIView):
         jobs = SavedJobs.objects.filter(mainUserId=pk)
         serializer = SavedJobSerializer(jobs, many=True)
         return Response(serializer.data)
+      
+class MessageList(viewsets.ModelViewSet):
+    queryset = JobMessage.objects.all()
+    serializer_class = JobMessageSerializer
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class LoginView(generics.ListCreateAPIView):
     # This permission class will overide the global permission class setting

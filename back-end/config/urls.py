@@ -4,11 +4,12 @@ from sidegig import views
 from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import TokenVerifyView
 from rest_framework import routers
-from sidegig.views import  Jobs, SavedList, SavedJobsList
+from sidegig.views import  Jobs, SavedList, SavedJobsList, MessageList
 
 router = routers.DefaultRouter()
 router.register('jobs', Jobs)
 router.register('saved', SavedList)
+router.register('job-messages', MessageList)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),

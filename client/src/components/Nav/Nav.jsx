@@ -18,7 +18,7 @@ const authenticatedOptions = (
     <div className="username">
       {props.user && <p className="user-p">Welcome, {props.user}</p>}
     </div>
-    <Link to={`/${props.userId}/saved-jobs`}><button className="nav-btn">Saved <i class="fa fa-heart"></i></button></Link>
+    <Link to={`/${props.userId}/saved-jobs`}><button className="nav-btn">Saved <i class="fa fa-bookmark-o"></i></button></Link>
     <button className="nav-btn">Inbox <i class="fa fa-envelope"></i></button>
     <JobForm userId={props.userId} userName={props.user} dateJoined={props.dateJoined} />
     <button onClick={()=>handleClick()} className="signout-btn">
