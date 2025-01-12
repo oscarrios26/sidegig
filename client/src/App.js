@@ -38,22 +38,14 @@ function App() {
 
 		const getUserLocation = () => {
 			if ("geolocation" in navigator) {
-				// Prompt user for permission to access their location
 				navigator.geolocation.getCurrentPosition(
-					// Success callback function
 					(position) => {
-						// Get the user's latitude and longitude coordinates
 						fetchJobs(position.coords.latitude, position.coords.longitude);
 					},
-					// Error callback function
 					(error) => {
-						// Handle errors, e.g. user denied location sharing permissions
-						console.error("Error getting user location:", error);
+						fetchJobs(32.7266604, -97.0729598);
 					}
 				);
-			} else {
-				// Geolocation is not supported by the browser
-				console.error("Geolocation is not supported by this browser.");
 			}
 		};
 		getUserLocation();
