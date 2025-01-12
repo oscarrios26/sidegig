@@ -1,6 +1,7 @@
 .home-flex-container{
   display: flex;
   max-width: 1500px;
+  min-height: 100vh;
   margin: 0 auto;
   margin-top: 100px;
 }
@@ -8,7 +9,7 @@
 .job-title{
   width: 50%;
   min-width: 50%;
-  max-height: 100%;
+  min-height: 100%;
   border-right: 1.5px solid rgba(0, 0, 0, 0.304);
 }
 
@@ -89,7 +90,7 @@ font-style: italic;
   border-radius: 60px;
   border: 1px solid rgb(91, 150, 233);;
   cursor: pointer;
-  background-color: rgb(91, 150, 233);
+  background-color: rgb(59, 111, 176);
   color: white;
 }
 

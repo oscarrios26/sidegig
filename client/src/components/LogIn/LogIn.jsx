@@ -6,7 +6,7 @@ import SignUp from "../SignUp/SignUp";
 
 Modal.setAppElement("#root");
 
-export default function LogIn({ setUser, logInModal, setLogInModal}) {
+export default function LogIn({ setUser, openLogIn, setOpenLogIn, openLogInModal, setOpenLogInModal }) {
 
   const [open, setOpen] = useState(false)
 	const [credentials, setCredentials] = useState({
@@ -17,8 +17,13 @@ export default function LogIn({ setUser, logInModal, setLogInModal}) {
   });
   
   useEffect(() => {
-    setOpen(!logInModal)
-  }, [logInModal])
+    setOpen(openLogIn)
+  }, [openLogIn])
+
+  useEffect(() => {
+    setOpen(openLogInModal)
+  }, [openLogInModal])
+
 
 	const handleChange = (e) => {
 		setCredentials({
@@ -43,9 +48,13 @@ export default function LogIn({ setUser, logInModal, setLogInModal}) {
   };
   
   const hadleClick = () => {
-    
     setOpen(!open)
-    setLogInModal((prev)=> !prev)
+    if (openLogIn) {
+      setOpenLogIn((prev) => !prev)
+    }
+    if (openLogInModal) {
+      setOpenLogInModal((prev) => !prev)
+    }
   }
 
   return (

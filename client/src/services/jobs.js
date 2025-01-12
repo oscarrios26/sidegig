@@ -9,6 +9,15 @@ export const getJobs = async () => {
 	}
 };
 
+export const getJob = async (id) => {
+	try {
+		const response = await api.get(`/jobs/${id}`);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+};
+
 export const postJob = async (credentials) => {
 	try {
 		const response = await api.post(`/jobs/`, credentials);
@@ -21,6 +30,15 @@ export const postJob = async (credentials) => {
 export const postMessage = async (credentials) => {
 	try {
 		const response = await api.post(`/job-messages/`, credentials);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const getMessages = async (userId) => {
+	try {
+		const response = await api.get(`/job-messages/${userId}/`);
 		return response.data;
 	} catch (error) {
 		throw error;

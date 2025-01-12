@@ -1,28 +1,35 @@
 import "./Home.css"
-import Layout from "../../components/Layout/Layout";
-import moment from "moment";
 import { savedJobs } from "../../services/users";
 import { useState } from "react";
+import { verifyUser } from "../../services/users";
 import MessageModal from "../../components/MessageModal/MessageModal";
+import Layout from "../../components/Layout/Layout";
+import moment from "moment";
 
 export default function Home(props) {
   const [jobDescription, setJobDescription] = useState('')
-  const [logInModal, setLogInModal] = useState(false)
+  const [openLogIn, setOpenLogIn] = useState(false)
 
   const handleSaveJob = async(job)=> {
     try {
-      const resp = await savedJobs({
-        ...job,
-        mainUserId: props.userId
-      })
-      return resp
+      if (props.userId) {
+        const resp = await verifyUser(props.userId);
+        if (resp) {
+          await savedJobs({
+            ...job,
+            mainUserId: props.userId
+          })
+        }
+      } else {
+          setOpenLogIn((prev) => !prev)
+      }
     } catch (error) {
       throw error
     }
   }
   
   return (
-    <Layout location={props.userLocation} user={props.user} setUser={props.setUser} userId={props.userId} dateJoined={props.dateJoined} logInModal={logInModal} setLogInModal={setLogInModal}>
+    <Layout location={props.userLocation} user={props.user} setUser={props.setUser} userId={props.userId} dateJoined={props.dateJoined} openLogIn={openLogIn} setOpenLogIn={setOpenLogIn}>
     <div className="home-flex-container">
       <div className="job-title">
               {props.jobs.map((job) => (
@@ -47,8 +54,12 @@ export default function Home(props) {
                   <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="user-pic" className="user-pic" />
                 </div>
                 <div className="div-username">
-                  <p className="p-username">{jobDescription.username}</p>
-                  <p className="p-joineddate">Joined{props.dateJoined}</p>
+                    <p className="p-username">{jobDescription.username}</p>
+                    {props.dateJoined ? <p className="p-joineddate">Joined {(props.dateJoined)}</p>
+                      :
+                      <p className="p-joineddate">Joined {jobDescription.date_joined}</p>
+                    }
+                  
                 </div>
               </div>
               <p className="p-pay">pay: ${jobDescription.pay}</p>
@@ -60,7 +71,7 @@ export default function Home(props) {
                 <p>{jobDescription.description}</p>
               </div>
               <div className="div-btn">
-                <MessageModal userId={props.userId} jobId={jobDescription.id} />
+                <MessageModal userId={props.userId} job={jobDescription} location={props.userLocation} user={props.user} setUser={props.setUser} dateJoined={props.dateJoined}/>
                 <button className="msg-btn" onClick={()=>handleSaveJob(jobDescription)}>Save <i class="fa fa-bookmark-o"></i></button>
               </div>
           </>
@@ -75,7 +86,10 @@ export default function Home(props) {
                 </div>
                 <div className="div-username">
                   <p className="p-username">{props.jobs[0].username}</p>
-                  <p className="p-joineddate">Joined{props.dateJoined}</p>
+                  {props.dateJoined ? <p className="p-joineddate">Joined {(props.dateJoined)}</p>
+                      :
+                      <p className="p-joineddate">Joined {props.jobs[0].date_joined}</p>
+                    }
                 </div>
               </div>
               <p className="p-pay">pay: ${props.jobs[0].pay}</p>
@@ -87,7 +101,7 @@ export default function Home(props) {
                 <p>{props.jobs[0].description}</p>
                 </div>
                 <div className="div-btn">
-                <MessageModal/>
+                <MessageModal userId={props.userId} jobId={ props.jobs[0].id} job={jobDescription} location={props.userLocation} user={props.user} setUser={props.setUser} dateJoined={props.dateJoined}/>
                   <button className="msg-btn" onClick={() => handleSaveJob(props.jobs[0])}>Save <i class="fa fa-bookmark-o"></i></button>
                 </div>
             </div>

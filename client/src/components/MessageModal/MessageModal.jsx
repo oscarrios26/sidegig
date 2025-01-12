@@ -2,24 +2,45 @@ import './MessageModal.css'
 import Modal from "react-modal";
 import { useState } from 'react';
 import { postMessage } from "../../services/jobs"
+import { verifyUser } from '../../services/users';
+import Layout from '../Layout/Layout';
 
 Modal.setAppElement("#root");
 export default function MessageModal(props) {
   const [openModal, setOpenModal] = useState(false)
+  const [openLogInModal, setOpenLogInModal] = useState(false)
   const [credentials, setCredentials] = useState({
-  userId: props.userId,
-  jobId: props.jobId,
+  userId: '',
+  jobId: '',
   message: "",
+  title: '',
+  description: '',
+  pay: '',
+  username: '',
+  city: '',
+  state: '',
+  zipCode: '',
+  date_joined: '',
+  recipientId: '',
   isError: false,
   errorMsg: "",
   });
   const [isActive, setIsActive] = useState(false)
   const handleChange = (e) => {
-    console.log(e.target.value)
 		setCredentials({
 			...credentials,
       [e.target.name]: e.target.value,
-      jobId: props.jobId
+      userId: props.userId,
+      jobId: props.job.id,
+      title: props.job.title,
+      description: props.job.description,
+      pay: props.job.pay,
+      username: props.job.username,
+      zipCode: props.job.zipCode,
+      city: props.job.city,
+      state: props.job.state,
+      date_joined: props.job.date_joined,
+      recipientId: props.job.userId,
 		});
 	};
 
@@ -35,6 +56,22 @@ export default function MessageModal(props) {
   }
 	};
 
+  const handleClick = async () => {
+    try {
+      if (props.userId) {
+      const resp = await verifyUser(props.userId);
+      if (resp) {
+        setOpenModal(!openModal)
+      }
+      } else {
+     setOpenLogInModal((prev) => !prev)
+    }
+    }
+    catch (error) {
+      throw error
+    }
+  }
+
   const handleExit = () => {
     setOpenModal(!openModal)
     credentials.message = ''
@@ -42,8 +79,9 @@ export default function MessageModal(props) {
 
 
   return (
+    <Layout location={props.location} user={props.user} setUser={props.setUser} userId={props.userId} dateJoined={props.dateJoined} openLogInModal={openLogInModal} setOpenLogInModal={setOpenLogInModal}>
     <div>
-      <button className="msg-btn" onClick={() => setOpenModal(!openModal)}>Message</button>
+      <button className="msg-btn" onClick={handleClick}>Message</button>
       <Modal isOpen={openModal} className="messageModal">
         <p className='exit-message-modal' onClick={handleExit}>X</p>
         <form action="POST" onSubmit={handleSubmit}>
@@ -81,6 +119,7 @@ export default function MessageModal(props) {
     </div>
   </div>
 </div>
-    </div>
+</div>
+</Layout>
   )
 }

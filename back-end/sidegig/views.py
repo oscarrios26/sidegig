@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 
 class Jobs(viewsets.ModelViewSet):
     queryset = Job.objects.all()
@@ -28,7 +29,14 @@ class MessageList(viewsets.ModelViewSet):
     queryset = JobMessage.objects.all()
     serializer_class = JobMessageSerializer
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
+    
+class GetMessage(APIView):
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs['pk']
+        jobs = JobMessage.objects.filter(recipientId=pk)
+        serializer = JobMessageSerializer(jobs, many=True)
+        return Response(serializer.data)
+      
 class LoginView(generics.ListCreateAPIView):
     # This permission class will overide the global permission class setting
     # Permission checks are always run at the very start of the view, before any other code is allowed to proceed.

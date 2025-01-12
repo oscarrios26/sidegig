@@ -1,12 +1,13 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Home from "./screens/Home/Home";
-import SavedJobs from "./components/SavedJobs/SavedJobs";
 import { useEffect, useState } from "react";
 import { getJobs } from "./services/jobs";
-import axios from "axios";
 import { verifyUser } from "./services/users";
 import { jwtDecode } from "jwt-decode";
+import Home from "./screens/Home/Home";
+import SavedJobs from "./screens/SavedJobs/SavedJobs";
+import Inbox from "./screens/Inbox/Inbox";
+import axios from "axios";
 
 function App() {
 	const [user, setUser] = useState("");
@@ -27,6 +28,7 @@ function App() {
 					let date = new Date(resp.date_joined);
 					date = date.toUTCString();
 					date = date.slice(7, 16);
+					console.log(date);
 					setDateJoined(date);
 					setUserId(decoded.user_id);
 				}
@@ -96,6 +98,20 @@ function App() {
 					path="/:userId/saved-jobs"
 					element={
 						<SavedJobs
+							userLocation={userLocation}
+							user={user}
+							setUser={setUser}
+							userId={userId}
+							dateJoined={dateJoined}
+							jobs={jobs}
+							descriptionText={descriptionText}
+						/>
+					}
+				/>
+				<Route
+					path="/:userId/inbox"
+					element={
+						<Inbox
 							userLocation={userLocation}
 							user={user}
 							setUser={setUser}
