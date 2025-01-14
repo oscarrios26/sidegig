@@ -88,7 +88,7 @@
 .exit-login{
 position: relative;
 right: 3px;
-top: -0px;
+top: 5px;
 font-size: 20px;
 border:none;
 background-color: white;
@@ -105,4 +105,10 @@ cursor: pointer;
   justify-content: center;
   height: 20px;
   width: 100%;
+}
+
+.eye{
+  position: absolute;
+  top: 235px;
+  right: 55px;
 }

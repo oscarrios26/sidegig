@@ -74,7 +74,7 @@ export default function SignUp({ setOpen, setUser }) {
 						onChange={handleChange}
 					/>
 					<input
-						type="text"
+						type="email"
 						placeholder="email"
 						className="signup-text"
 						value={credentials.email}

@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
+import smtplib
 
 class Jobs(viewsets.ModelViewSet):
     queryset = Job.objects.all()
@@ -71,9 +72,9 @@ class RegisterUsersView(generics.ListCreateAPIView):
     queryset = User.objects.all()
 
     def post(self, request):
-        username = request.data.get("username", "")
+        username = request.data.get("username", "").lower()
         password = request.data.get("password", "")
-        email = request.data.get("email", "")
+        email = request.data.get("email", "").lower()
         
         if not username or not password or not email:
             return Response(
@@ -82,21 +83,39 @@ class RegisterUsersView(generics.ListCreateAPIView):
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
-        new_user = User.objects.create_user(
-          username=username, password=password, email=email
-        )
-        user = authenticate(request, username=username, password=password)
-        login(request, user)
-        refresh = RefreshToken.for_user(user)
-        serializer = TokenSerializer(data={
+        user_email = User.objects.filter(email=email)
+        if not user_email:
+            new_user = User.objects.create_user(
+            username=username, password=password, email=email
+            )
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            refresh = RefreshToken.for_user(user)
+            serializer = TokenSerializer(data={
             # using DRF JWT utility functions to generate a token
             "token": str(refresh.access_token)
             })
-        serializer.is_valid()
-        return Response({"token" : serializer.data})
+            serializer.is_valid()
+            return Response({"token" : serializer.data})
 
 
 class VerifyUsersView(generics.RetrieveAPIView):
     
     queryset = User.objects.all()
     serializer_class = VerifySerializer
+    
+    
+    
+class VerifyByEmail(generics.RetrieveAPIView):
+    
+    queryset = User.objects.all()
+    
+    def post(self, request):
+        email = 'oscarr2125@gmail.com'
+        receiver_email = 'oscarr817@yahoo.com'
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        
+        server.login(email, "dvgx ulie bijf grtu")
+        return server.sendmail(email, receiver_email, 'hello Oscar')
+                        

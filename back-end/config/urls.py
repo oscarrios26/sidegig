@@ -4,13 +4,12 @@ from sidegig import views
 from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import TokenVerifyView
 from rest_framework import routers
-from sidegig.views import  Jobs, SavedList, SavedJobsList, MessageList, GetMessage
+from sidegig.views import  Jobs, SavedList, SavedJobsList, MessageList, GetMessage, VerifyByEmail
 
 router = routers.DefaultRouter()
 router.register('jobs', Jobs)
 router.register('saved', SavedList)
 router.register('job-messages', MessageList)
-# router.register('job-messages/<int:pk>/', GetMessage, basename="jobs")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,5 +21,6 @@ urlpatterns = [
     path('verify/<int:pk>/', views.VerifyUsersView.as_view()),
     path('saved-jobs/<int:pk>/', SavedJobsList.as_view(), name='saved-jobs-list'),
     path('job-messages/<int:pk>/', GetMessage.as_view(), name='message-jobs-list'),
+    path('email-verification/', VerifyByEmail.as_view(), name='verify-by-email'),
     path('', include(router.urls))
 ]
